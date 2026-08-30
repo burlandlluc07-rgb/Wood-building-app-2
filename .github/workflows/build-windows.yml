@@ -23,6 +23,9 @@ jobs:
         env:
           npm_config_allow_git: all
 
+            - name: Set up MSVC build environment
+        uses: ilammy/msvc-dev-cmd@v1
+
       - name: Rebuild native modules for Electron
         run: npm run rebuild:native
 
