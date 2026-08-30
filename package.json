@@ -1,6 +1,7 @@
-{
-  "name": "nextjs-postgresql-template",
-  "private": true,
+   {
+     "name": "nextjs-postgresql-template",
+     "version": "1.0.0",
+     "private": true,
   "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
