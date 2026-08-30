@@ -43,9 +43,8 @@
     "appId": "com.nestforge.app",
     "productName": "NestForge",
     "asar": true,
-    "files": [
-      "electron/main.js",
-      "package.json"
+       "files": [
+     "electron/main.js"
     ],
     "extraResources": [
       { "from": ".next", "to": "app/.next", "filter": ["**/*"] },
