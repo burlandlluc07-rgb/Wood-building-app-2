@@ -1,0 +1,39 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+        env:
+          npm_config_allow_git: all
+
+      - name: Rebuild native modules for Electron
+        run: npm run rebuild:native
+
+      - name: Build Next.js app (standalone)
+        run: npm run build:next
+
+      - name: Package the Windows installer
+        run: npx electron-builder --win
+
+      - name: Upload the installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: NestForge-windows-installer
+          path: dist/*.exe
