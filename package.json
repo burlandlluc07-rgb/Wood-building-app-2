@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "db:push": "drizzle-kit push",
-    "build:next": "next build && node scripts/prepare-standalone.js",
+    "build:next": "next build --webpack && node scripts/prepare-standalone.js",
     "rebuild:native": "electron-rebuild -f -w better-sqlite3",
     "dist:win": "npm run rebuild:native && npm run build:next && electron-builder --win"
   },
