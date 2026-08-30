@@ -1,7 +1,6 @@
-   {
-     "name": "nextjs-postgresql-template",
-     "version": "1.0.0",
-     "private": true,
+{
+  "name": "nextjs-postgresql-template",
+  "private": true,
   "main": "electron/main.js",
   "scripts": {
     "dev": "next dev",
@@ -10,9 +9,9 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "db:push": "drizzle-kit push",
-    "build:next": "next build --webpack && node scripts/prepare-standalone.js",
+    "build:next": "next build --webpack",
     "rebuild:native": "electron-rebuild -f -w better-sqlite3",
-    "dist:win": "npm run rebuild:native && npm run build:next && electron-builder --win"
+    "dist:win": "npm run rebuild:native && npm run build:next && electron-builder --win --publish never"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",
@@ -44,15 +43,16 @@
     "productName": "NestForge",
     "asar": true,
     "files": [
-      "electron/**/*",
+      "electron/main.js",
       "package.json"
     ],
     "extraResources": [
-      {
-        "from": ".next/standalone",
-        "to": "standalone",
-        "filter": ["**/*"]
-      }
+      { "from": ".next", "to": "app/.next", "filter": ["**/*"] },
+      { "from": "public", "to": "app/public", "filter": ["**/*"] },
+      { "from": "node_modules", "to": "app/node_modules", "filter": ["**/*"] },
+      { "from": "package.json", "to": "app/package.json" },
+      { "from": "next.config.ts", "to": "app/next.config.ts" },
+      { "from": "electron/run-server.js", "to": "app/run-server.js" }
     ],
     "win": {
       "target": "nsis"

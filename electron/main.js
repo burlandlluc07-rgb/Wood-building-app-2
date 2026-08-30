@@ -49,12 +49,12 @@ function waitForServer(port, timeoutMs = 20000) {
 
 async function startServer() {
   const port = await getFreePort();
-  const standaloneDir = path.join(resourcesRoot(), "standalone");
-  const serverEntry = path.join(standaloneDir, "server.js");
+  const appDir = path.join(resourcesRoot(), "app");
+  const serverEntry = path.join(appDir, "run-server.js");
 
   if (!fs.existsSync(serverEntry)) {
     throw new Error(
-      `Could not find server.js at ${serverEntry}. Did the build copy .next/standalone into resources/standalone?`
+      `Could not find run-server.js at ${serverEntry}. Did the build copy the app files into resources/app?`
     );
   }
 
@@ -63,7 +63,7 @@ async function startServer() {
   const dbPath = path.join(app.getPath("userData"), "nestforge.db");
 
   serverProcess = spawn(process.execPath, [serverEntry], {
-    cwd: standaloneDir,
+    cwd: appDir,
     env: {
       ...process.env,
       PORT: String(port),
